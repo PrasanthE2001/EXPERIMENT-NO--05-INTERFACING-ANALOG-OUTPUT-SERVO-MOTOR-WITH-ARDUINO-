@@ -1,21 +1,17 @@
 # EXPERIMENT NO 05 INTERFACING ANALOG OUTPUT SERVO MOTOR WITH ARDUINO
 
 ### AIM
-
-   To interface an Analog output (servo motor) and modify the angular displacement of the servo using PWM signal .
-
+To interface an Analog output (servo motor) and modify the angular displacement of the servo using PWM signal .
 COMPONENTS REQUIRED:
-
-  1.	Servo motor of choice (9v is preferred )
-  2.	1 KΩ resistor 
-  3.	Arduino Uno 
-  4.	USB Interfacing cable 
-  5.	Connecting wires 
-  6.	Servo rated power supply (dc source )
+1.	Servo motor of choice (9v is preferred )
+2.	1 KΩ resistor 
+3.	Arduino Uno 
+4.	USB Interfacing cable 
+5.	Connecting wires 
+6.	Servo rated power supply (dc source )
 
 
 ### THEORY
-
 Servo motors and are constructed out of basic DC motors, by adding:
 •	 gear reduction
 •	 a position sensor for the motor shaft
@@ -42,14 +38,21 @@ An external controller (such as the Arduino) tells the servo where to go with a 
 
 ### Figure-03 SERVO MOTOR OVERVIEW 
 
+ 
+
+
+ 
+
+
+
+
 
 CIRCUIT DIAGRAM
  
  
  ![image](https://user-images.githubusercontent.com/36288975/163544618-6eb8a7b5-7f1a-428a-8d9f-fd899b145efb.png)
 
-### FIGURE 04CIRCUIT DIAGRAM
-
+### FIGURE 04 CIRCUIT DIAGRAM
 
 ### PROCEDURE:
 1.	Connect the circuit as per the circuit diagram 
@@ -62,100 +65,44 @@ CIRCUIT DIAGRAM
 8.	Upload the program and check for the physical working. 
 9.	Ensure safety before powering up the device.
 
-CIRCUIT DIAGRAM:
-OFF SETUP:
-
-![image](https://user-images.githubusercontent.com/114572171/203601214-cf416099-6ebd-44c9-a88e-db8f8967ed0b.png)
-
-ON SETUP:
-
-![image](https://user-images.githubusercontent.com/114572171/203601308-f362a37c-eac0-40d4-9732-077223a18d9a.png)
-
 
 ### PROGRAM :
-
-```
-// C++ code
-//
 #include <Servo.h>
-int pos = 0;
 
-Servo servo_11;
+Servo myservo;
+int value;
+double angle;
 
 void setup()
 {
-  servo_11.attach(11,500,2500);
-  Serial.begin(9600);
+ Serial.begin(9600);
+ myservo.attach(9);
 }
-
 void loop()
 {
-  for (pos = 0;pos<=180;pos+=1)
-  {
-    servo_11.write(pos);
-    delay(5);
-    Serial.print("angle of servo= ");
-  Serial.println(pos);
-  }
-  for (pos = 180;pos>=0;pos-=1)
-  {
-    servo_11.write(pos);
-    delay(10);
-    Serial.print("angle of servo= ");
-  Serial.println(pos);
-  }
-  delay(100);
-  Serial.print("angle of servo= ");
-  Serial.println(pos);
+ value = analogRead(A0);
+ angle = map(value, 0, 1023, 0, 180);
+ Serial.println(angle);
+ myservo.write(angle);
+ delay(15);
 }
 
-```
-OUTPUT :
+### OUTPUT:
 
-![image](https://user-images.githubusercontent.com/114572171/203601519-d918580c-4655-4422-9d63-c00fb1bebcac.png)
 
-TOGGLE GRAPH:
-PROGRAM:
-```
-// C++ code
-#include <Servo.h>
-int pos = 0;
+![Screenshot (74)](https://github.com/amurthavaahininagarajan/EXPERIMENT-NO--05-INTERFACING-ANALOG-OUTPUT-SERVO-MOTOR-WITH-ARDUINO-/assets/118679102/ba84432a-cea6-4f64-b63c-6d7318b49ddb)
+![Screenshot (75)](https://github.com/amurthavaahininagarajan/EXPERIMENT-NO--05-INTERFACING-ANALOG-OUTPUT-SERVO-MOTOR-WITH-ARDUINO-/assets/118679102/5b372768-40ea-4a95-a087-fb19dbf7335b)
+![Screenshot (77)](https://github.com/amurthavaahininagarajan/EXPERIMENT-NO--05-INTERFACING-ANALOG-OUTPUT-SERVO-MOTOR-WITH-ARDUINO-/assets/118679102/038f813b-b5f9-42f5-ac24-f5f0ff3748a1)
 
-Servo servo_11;
+ 
 
-void setup()
-{
-  servo_11.attach(11,500,2500);
-  Serial.begin(9600);
-}
 
-void loop()
-{
-  for (pos = 0;pos<=180;pos+=1)
-  {
-    servo_11.write(pos);
-    delay(5);
-    //Serial.print("angle of servo= ");
-  Serial.println(pos);
-  }
-  for (pos = 180;pos>=0;pos-=1)
-  {
-    servo_11.write(pos);
-    delay(10);
-    //Serial.print("angle of servo= ");
-  Serial.println(pos);
-  }
-  delay(100);
-  Serial.print("angle of servo= ");
-  Serial.println(pos);
-}
-```
 
-OUTPUT:
 
-![image](https://user-images.githubusercontent.com/114572171/203601962-b7217feb-283f-4ee1-8080-e195db42b07f.png)
+
+
+
 
 
 ### RESULTS: 
-
 Arduino uno interfacing with servo motor is learned and angular position is controlled using PWM signal.
